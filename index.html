@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abhigyan Gautam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0e11;
+      --surface: #13171d;
+      --border: #1e2530;
+      --accent: #00e5a0;
+      --accent2: #0af;
+      --text: #e8edf3;
+      --muted: #6b7a8d;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      padding: 100px 0 80px;
+      animation: fadeUp 0.8s ease both;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,229,160,0.3);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      white-space: nowrap;
+    }
+
+    .hero h1 span {
+      display: inline;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #9baab8;
+      margin-bottom: 16px;
+    }
+
+    .links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,229,160,0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    .status-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+      margin: 0 0 60px;
+      opacity: 0.3;
+    }
+
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.8s ease both;
+      animation-delay: 0.15s;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .card p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.8s ease both;
+      animation-delay: 0.3s;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <section class="hero">
+      <img src="Photograph.jpeg" alt="Abhigyan Gautam" style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--accent);margin-bottom:24px;box-shadow:0 0 24px rgba(0,229,160,0.2);display:block;margin-left:auto;margin-right:auto;"/>
+      <div class="tag">✦ Aspiring Data Scientist</div>
+      <h1>Hi, I'm <span>Abhigyan</span></h1>
+
+      <p>
+        I am an aspiring data science learner, currently exploring the basics
+        of programming, data, and how machines learn from information.
+      </p>
+
+      <p>
+        This is my first profile web page, built using HTML and CSS as part of a learning cohort.
+        As I am just bursting into data science, I am learning about the overall workflow and the different roles that exist in the AI ecosystem.
+      </p>
+
+      <div class="links">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/abhigyan-gautam-850b7b3b3" target="_blank">↗ LinkedIn</a>
+        <a class="btn btn-secondary" href="https://github.com/abhigyan-abhigyan" target="_blank">⌥ GitHub</a>
+        <a class="btn btn-secondary" href="/cdn-cgi/l/email-protection#23111144425657424e42414b4a63444e424a4f0d404c4e">✉ Email</a>
+      </div>
+
+
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <div class="section-label">Motivation</div>
+      <h2>What Motivates me for stepping into data science?</h2>
+      <div class="card">
+        <p>Sheer interest in mathematics and its application in this field.</p>
+            <p style="margin-top:12px;">I enjoy how mathematical thinking translates into real-world decisions and problem solving.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <div class="section-label">Interests</div>
+      <h2>Beyond the Screen</h2>
+      <div class="card">
+        <p>Avid cricket and badminton player who values teamwork. Music enthusiast who uses it as a means of self-expression.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" style="text-align:left;">
+      <div style="display:flex; gap:32px; flex-wrap:wrap;">
+
+        <!-- Education -->
+        <div style="flex:1; min-width:220px;">
+          <div class="section-label">Education</div>
+          <h2>Academic Background</h2>
+          <div class="card">
+            <p>Bachelor of Technology in Electronics and Communication Engineering</p>
+            <p style="color:var(--muted); font-size:0.9rem; margin-top:10px;">IIIT Guwahati · 2025</p>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div style="flex:1; min-width:220px;">
+          <div class="section-label">Skills</div>
+          <h2>Currently Working On</h2>
+          <div class="card">
+            <p style="margin-bottom:12px; font-size:0.9rem; font-style:italic;">🎯 Current Focus — <span style="color:var(--muted);">Building a strong foundation in mathematics and programming before moving into Machine Learning</span></p>
+            <p style="margin-bottom:12px; font-size:0.9rem;">✅ Linear Algebra — <span style="color:var(--accent);">Comfortable</span></p>
+            <p style="margin-bottom:12px; font-size:0.9rem;">✅ Calculus — <span style="color:var(--accent);">Comfortable</span></p>
+            <p style="margin-bottom:12px; font-size:0.9rem;">🔄 Statistics — <span style="color:#0af;">Brushing Up</span></p>
+            <p style="font-size:0.9rem;">🔄 Probability — <span style="color:#0af;">Brushing Up</span></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:32px; font-style:italic;">This page will evolve as I learn and build more projects.</p>
+
+    <footer>
+      <p style="color:var(--muted); font-size:0.85rem;">📍 Agra, Uttar Pradesh</p>
+    </footer>
